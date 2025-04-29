@@ -1,0 +1,29 @@
+# Node modules
+node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# dotenv environment variables file
+.env
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Optional npm cache directory
+.npm/
+
+# Coverage directory used by testing tools like istanbul
+coverage/
+
+# Build output
+dist/
+build/

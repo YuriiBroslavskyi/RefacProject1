@@ -1,0 +1,26 @@
+<%- include('partials/header') %>
+
+    <section class="mandarin-list">
+        <% if (message) { %>
+            <div class="message">
+                <%= message %>
+            </div>
+            <% } %>
+
+                <% mandarins.forEach(m=> { %>
+                    <div class="mandarin-card">
+                        <h2>
+                            <%= m.name %>
+                        </h2>
+                        <p>Ціна: <strong>
+                                <%= m.price %>₴
+                            </strong></p>
+                        <form method="POST" action="/order">
+                            <input type="hidden" name="id" value="<%= m.id %>">
+                            <button type="submit">Замовити</button>
+                        </form>
+                    </div>
+                    <% }) %>
+    </section>
+
+    <%- include('partials/footer') %>

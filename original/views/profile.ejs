@@ -1,0 +1,22 @@
+<%- include('partials/header') %>
+
+    <section class="profile">
+        <h2>Ваші замовлення</h2>
+
+        <% if (orders.length===0) { %>
+            <p>Ви ще не замовляли нічого.</p>
+            <% } else { %>
+                <ul class="order-list">
+                    <% orders.forEach(o=> { %>
+                        <li>
+                            <strong>
+                                <%= o.name %>
+                            </strong> — <%= o.price %>₴
+                                <em>(<%= o.date %>)</em>
+                        </li>
+                        <% }) %>
+                </ul>
+                <% } %>
+    </section>
+
+    <%- include('partials/footer') %>
