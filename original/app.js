@@ -1,44 +1,47 @@
 const express = require('express');
 const session = require('express-session');
 const path = require('path');
-const indexRouter = require('./routes/index');
+
+const authRoutes = require('./routes/authRoutes');
+const indexRoutes = require('./routes/indexRoutes');
 
 const app = express();
 
 // Налаштування EJS
+app.use(express.static(path.join(__dirname, '..', 'public')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // Статика
-app.use(express.static(path.join(__dirname, 'public')));
 
-// Парсинг тіла POST
+// Парсинг тіла
 app.use(express.urlencoded({ extended: false }));
 
-// Налаштування сесій
+// Сесії
 app.use(session({
     secret: 'mandarin-secret-key',
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: { maxAge: 60 * 60 * 1000 }
 }));
 
-// Ініціалізація масиву замовлень у сесії
 app.use((req, res, next) => {
-    if (!req.session.orders) {
-        req.session.orders = [];
-    }
+    // робимо доступним в усіх шаблонах змінну session
+    res.locals.session = req.session;
     next();
 });
 
-// Маршрути
-app.use('/', indexRouter);
+app.use((req, res, next) => {
+    if (!req.session.orders) req.session.orders = [];
+    next();
+});
 
-// Експортуємо express-app для тестів
-module.exports = app;
+// Роутери
+app.use(authRoutes);
+app.use(indexRoutes);
 
-// Локальний запуск тільки при прямому виклику
-if (require.main === module) {
-    const PORT = process.env.PORT || 3000;
-    app.listen(PORT);  // без console.log
-}
+// Старт
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
+});

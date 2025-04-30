@@ -1,0 +1,244 @@
+/* Додай це в самий початок або поряд із базовим reset */
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* ---------- VARS ---------- */
+:root {
+    --orange-light: #ffe5d4;
+    --orange: #ff7f00;
+    --orange-dark: #e66900;
+    --bg: #fff8f0;
+    --text: #333;
+    --text-light: #666;
+    --shadow: rgba(0, 0, 0, 0.1);
+    --font: 'Montserrat', sans-serif;
+}
+
+/* ---------- RESET & BASE ---------- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+}
+
+a {
+    color: var(--orange);
+    text-decoration: none;
+}
+
+button {
+    font-family: var(--font);
+}
+
+/* ---------- HEADER & NAV ---------- */
+header {
+    background: var(--orange);
+    color: #fff;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 6px var(--shadow);
+}
+
+header h1 {
+    font-weight: 300;
+    font-size: 1.6rem;
+}
+
+header nav a,
+header nav button {
+    margin-left: 1rem;
+    font-weight: 600;
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+header nav a:hover,
+header nav button:hover {
+    opacity: 0.8;
+}
+
+/* ---------- MAIN LAYOUT ---------- */
+main {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* ---------- AUTH FORMS ---------- */
+.auth {
+    background: #fff;
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px var(--shadow);
+}
+
+.auth h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-weight: 400;
+}
+
+.auth .error {
+    color: red;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.auth form input {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.auth form button {
+    width: 100%;
+    padding: 0.75rem;
+    background: var(--orange);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.auth form button:hover {
+    background: var(--orange-dark);
+}
+
+/* ---------- MANDARIN CARD LIST ---------- */
+.mandarin-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.mandarin-card {
+    background: var(--orange-light);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px var(--shadow);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.mandarin-card h2 {
+    font-weight: 400;
+    font-size: 1.2rem;
+    padding: 1rem;
+}
+
+.mandarin-card p {
+    padding: 0 1rem;
+    color: var(--text-light);
+}
+
+.mandarin-card form {
+    padding: 1rem;
+    background: #fff;
+}
+
+.mandarin-card button {
+    width: 100%;
+    padding: 0.5rem;
+    background: var(--orange);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.mandarin-card button:hover {
+    background: var(--orange-dark);
+    transform: translateY(-2px);
+}
+
+/* ---------- PROFILE / ORDER LIST ---------- */
+.profile {
+    max-width: 800px;
+    margin: 2rem auto;
+    text-align: center;
+}
+
+.profile h2 {
+    margin-bottom: 1rem;
+    font-weight: 400;
+}
+
+.order-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+}
+
+.order-list li {
+    background: var(--orange-light);
+    padding: 1rem 1.5rem;
+    border-left: 4px solid var(--orange);
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 6px var(--shadow);
+}
+
+.order-list li em {
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+/* ---------- FOOTER ---------- */
+footer {
+    background: var(--orange);
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 600px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    header nav {
+        margin-top: 0.5rem;
+    }
+}

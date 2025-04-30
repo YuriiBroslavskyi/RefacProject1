@@ -1,0 +1,15 @@
+<%- include('partials/header') %>
+    <section class="auth">
+        <h2>Реєстрація</h2>
+        <% if (error) { %>
+            <p class="error">
+                <%= error %>
+            </p>
+            <% } %>
+                <form method="POST" action="/register">
+                    <input name="username" placeholder="Логін"><br>
+                    <input name="password" type="password" placeholder="Пароль"><br>
+                    <button type="submit">Зареєструватися</button>
+                </form>
+    </section>
+    <%- include('partials/footer') %>
