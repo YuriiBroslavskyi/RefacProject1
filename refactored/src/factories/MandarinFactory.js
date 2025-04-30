@@ -1,10 +1,14 @@
+// src/factories/MandarinFactory.js
 const Mandarin = require('../domain/Mandarin');
-const data = require('../config/mandarins');
+const pool = require('../db');
 
 class MandarinFactory {
-    static create(id) {
-        const record = data.find(m => m.id === parseInt(id, 10));
-        return record ? new Mandarin(record) : null;
+    static async create(id) {
+        const [rows] = await pool.execute(
+            'SELECT * FROM mandarins WHERE id = ?',
+            [id]
+        );
+        return rows[0] ? new Mandarin(rows[0]) : null;
     }
 }
 

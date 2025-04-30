@@ -1,14 +1,15 @@
+// src/controllers/BaseController.js
 class BaseController {
     wrap(action) {
         return async (req, res, next) => {
             try {
                 await action(req, res, next);
-            } catch (err) {
-                console.error(err);
-                res.status(500).send('Internal Server Error');
+            } catch (e) {
+                console.error(e);
+                req.session.lastMessage = e.message;
+                return res.redirect('/');
             }
         };
     }
 }
-
 module.exports = BaseController;

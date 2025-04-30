@@ -1,21 +1,17 @@
+// src/decorators/TimingDecorator.js
 class TimingDecorator {
-    constructor(service) {
-        this.service = service;
-    }
-
-    save(...args) {
+    constructor(repo) { this.repo = repo; }
+    async save(...args) {
         console.time('OrderRepository.save');
-        const result = this.service.save(...args);
+        const res = await this.repo.save(...args);
         console.timeEnd('OrderRepository.save');
-        return result;
+        return res;
     }
-
-    findAll(...args) {
-        console.time('OrderRepository.findAll');
-        const result = this.service.findAll(...args);
-        console.timeEnd('OrderRepository.findAll');
-        return result;
+    async findByUser(...args) {
+        console.time('OrderRepository.findByUser');
+        const res = await this.repo.findByUser(...args);
+        console.timeEnd('OrderRepository.findByUser');
+        return res;
     }
 }
-
 module.exports = TimingDecorator;

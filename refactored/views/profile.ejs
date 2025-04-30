@@ -1,8 +1,6 @@
 <%- include('partials/header') %>
-
     <section class="profile">
         <h2>Ваші замовлення</h2>
-
         <% if (orders.length===0) { %>
             <p>Ви ще не замовляли нічого.</p>
             <% } else { %>
@@ -12,11 +10,10 @@
                             <strong>
                                 <%= o.name %>
                             </strong> — <%= o.price %>₴
-                                <em>(<%= o.date %>)</em>
+                                <em>(<%= o.order_date %>)</em>
                         </li>
                         <% }) %>
                 </ul>
                 <% } %>
     </section>
-
     <%- include('partials/footer') %>

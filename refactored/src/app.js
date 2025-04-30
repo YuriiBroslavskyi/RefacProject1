@@ -1,34 +1,31 @@
+// src/app.js
 const express = require('express');
-const path = require('path');
 const session = require('express-session');
-const indexRouter = require('./routes/index');
+const path = require('path');
+const authRoutes = require('./routes/authRoutes');
+const indexRoutes = require('./routes/indexRoutes');
 
 const app = express();
 
+app.use(express.static(path.join(__dirname, '..', '..', 'public')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../views'));
 
-app.use(express.static(path.join(__dirname, '../public')));
 app.use(express.urlencoded({ extended: false }));
-
 app.use(session({
-    secret: 'mandarin-secret-key',
+    secret: 'mandarin-refactored-key',
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: { maxAge: 60 * 60 * 1000 }
 }));
+app.use((req, res, next) => { res.locals.session = req.session; next(); });
 
-// Ініціалізуємо масив замовлень у сесії
-app.use((req, res, next) => {
-    if (!req.session.orders) req.session.orders = [];
-    next();
-});
+app.use(authRoutes);
+app.use(indexRoutes);
 
-app.use('/', indexRouter);
-
+const PORT = process.env.PORT || 3000;
 module.exports = app;
 
-// Локальний запуск
 if (require.main === module) {
     const PORT = process.env.PORT || 3000;
     app.listen(PORT);

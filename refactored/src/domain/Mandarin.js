@@ -1,3 +1,4 @@
+// src/domain/Mandarin.js
 class Mandarin {
     constructor({ id, name, price }) {
         this.id = id;
@@ -5,5 +6,4 @@ class Mandarin {
         this.price = price;
     }
 }
-
 module.exports = Mandarin;

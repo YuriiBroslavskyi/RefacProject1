@@ -1,58 +1,30 @@
-// refactored/src/controllers/orderController.js
-
+// src/controllers/OrderController.js
 const BaseController = require('./BaseController');
-const container = require('../container');
-const mandarins = require('../config/mandarins');
+const { orderFacade, notifier, validatorChain } = require('../container');
+const { mandarinRepo } = require('../container');
 
 class OrderController extends BaseController {
-    constructor(facade, notifier, validatorChain) {
-        super();
-        this.facade = facade;
-        this.notifier = notifier;
-        this.validatorChain = validatorChain;
-    }
-
-    // GET /
     getIndex = async (req, res) => {
-        res.render('index', {
-            mandarins,
-            message: req.session.lastMessage || null
-        });
+        if (!req.session.userId) return res.redirect('/login');
+        const mandarins = await mandarinRepo.findAll();
+        const msg = req.session.lastMessage;
+        res.render('index', { mandarins, message: msg });
         req.session.lastMessage = null;
     };
 
-    // POST /order
-    postOrder = async (req, res) => {
-        try {
-            // якщо id відсутній/неправильний → помилка
-            this.validatorChain.validate(req);
+    postOrder = this.wrap(async (req, res) => {
+        if (!req.session.userId) return res.redirect('/login');
+        await validatorChain.validate(req);
+        const order = await orderFacade.placeOrder(req.body.id, req.session);
+        notifier.notify(req.session, `Ви успішно замовили: ${order.name}`);
+        res.redirect('/profile');
+    });
 
-            // спробуємо створити замовлення
-            const order = this.facade.placeOrder(req.body.id, req.session);
-
-            // успішно — задаємо повідомлення
-            this.notifier.notify(req.session, `Ви успішно замовили: ${order.name}`);
-        } catch (err) {
-            // будь-яка помилка трактуємо як “товару не знайдено”
-            req.session.lastMessage = 'Помилка: такого товару не знайдено.';
-            return res.redirect('/');
-        }
-
-        return res.redirect('/');
-    };
-
-    // GET /profile
     getProfile = async (req, res) => {
-        const orders = this.facade.getAll(req.session);
+        if (!req.session.userId) return res.redirect('/login');
+        const orders = await orderFacade.getOrders(req.session);
         res.render('profile', { orders });
     };
 }
 
-// Експортуємо вже готовий об’єкт-контролер (legacy tests чекають plain object)
-const controller = new OrderController(
-    container.facade,
-    container.notifier,
-    container.validatorChain
-);
-
-module.exports = controller;
+module.exports = new OrderController();

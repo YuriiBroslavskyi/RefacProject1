@@ -1,30 +1,51 @@
 const MandarinFactory = require('./factories/MandarinFactory');
+const UserRepository = require('./repositories/UserRepository');
+const MandarinRepository = require('./repositories/MandarinRepository');
 const OrderRepository = require('./repositories/OrderRepository');
 const TimingDecorator = require('./decorators/TimingDecorator');
-const SessionNotifier = require('./strategies/SessionNotifier');
+
+const AuthService = require('./services/AuthService');
 const OrderService = require('./services/OrderService');
-const OrderFacade = require('./facades/OrderFacade');
+
+const SessionNotifier = require('./strategies/SessionNotifier');
+
 const RequiredValidator = require('./validators/RequiredValidator');
 const NumberValidator = require('./validators/NumberValidator');
 const RangeValidator = require('./validators/RangeValidator');
 
-// Побудова ланцюжка валідаторів
-const required = new RequiredValidator();
-const number = required.setNext(new NumberValidator());
-number.setNext(new RangeValidator());
+const OrderFacade = require('./facades/OrderFacade');
 
-// Декорований репозиторій
-const repository = new TimingDecorator(new OrderRepository());
+// — Репозиторії —
+const userRepo = new UserRepository();
+const mandarinRepo = new MandarinRepository();
+const rawOrderRepo = new OrderRepository();
 
-// Сервіс та фасад
-const service = new OrderService(repository);
-const facade = new OrderFacade(MandarinFactory, service);
+// Декоруємо репозиторій для логування часу
+const orderRepo = new TimingDecorator(rawOrderRepo);
 
-// Нотифікатор
+// — Сервіси —
+const authService = new AuthService(userRepo);
+const orderService = new OrderService(orderRepo);
+
+// — Фасад для замовлень —
+const orderFacade = new OrderFacade(MandarinFactory, orderService);
+
+// — Нотифікатор сесії —
 const notifier = new SessionNotifier();
 
+// — Ланцюжок валідаторів (Chain of Responsibility) —
+const requiredValidator = new RequiredValidator();
+const numberValidator = requiredValidator.setNext(new NumberValidator());
+const rangeValidator = numberValidator.setNext(new RangeValidator(mandarinRepo));
+
+// — Експорт всього —
 module.exports = {
-    facade,
+    userRepo,
+    mandarinRepo,
+    orderRepo,
+    authService,
+    orderService,
+    orderFacade,
     notifier,
-    validatorChain: required
+    validatorChain: requiredValidator
 };

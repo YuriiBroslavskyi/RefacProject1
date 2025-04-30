@@ -1,20 +1,19 @@
+// src/facades/OrderFacade.js
 class OrderFacade {
-    constructor(factory, service) {
+    constructor(factory, orderService) {
         this.factory = factory;
-        this.service = service;
+        this.orderService = orderService;
     }
 
-    placeOrder(id, session) {
-        const mandarin = this.factory.create(id);
-        if (!mandarin) {
-            throw new Error('Товар не знайдено');
-        }
-        return this.service.createOrder(mandarin, session);
+    async placeOrder(id, session) {
+        const mandarin = await this.factory.create(id);
+        if (!mandarin) throw new Error('Not found');
+        const order = await this.orderService.place(mandarin, session.userId);
+        return order;
     }
 
-    getAll(session) {
-        return this.service.getAllOrders(session);
+    async getOrders(session) {
+        return this.orderService.list(session.userId);
     }
 }
-
 module.exports = OrderFacade;
