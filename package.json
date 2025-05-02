@@ -6,8 +6,8 @@
   "scripts": {
     "start:original": "node original/app.js",
     "start:refactored": "node refactored/src/app.js",
-    "test:original": "jest tests/common --env=node --runInBand",
-    "test:refactored": "IMPL=refactored/src jest tests/common --env=node --runInBand",
+    "test:original": "set \"IMPL=original\"&& jest tests/original/app.test.js --runInBand",
+    "test:refactored": "set \"IMPL=refactored/src\"&& jest tests/refactored/app.test.js --runInBand",
     "test": "npm run test:original && npm run test:refactored"
   },
   "dependencies": {

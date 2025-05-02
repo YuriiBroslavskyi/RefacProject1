@@ -1,4 +1,3 @@
-// src/domain/Mandarin.js
 class Mandarin {
     constructor({ id, name, price }) {
         this.id = id;

@@ -15,30 +15,23 @@ const RangeValidator = require('./validators/RangeValidator');
 
 const OrderFacade = require('./facades/OrderFacade');
 
-// — Репозиторії —
 const userRepo = new UserRepository();
 const mandarinRepo = new MandarinRepository();
 const rawOrderRepo = new OrderRepository();
 
-// Декоруємо репозиторій для логування часу
 const orderRepo = new TimingDecorator(rawOrderRepo);
 
-// — Сервіси —
 const authService = new AuthService(userRepo);
 const orderService = new OrderService(orderRepo);
 
-// — Фасад для замовлень —
 const orderFacade = new OrderFacade(MandarinFactory, orderService);
 
-// — Нотифікатор сесії —
 const notifier = new SessionNotifier();
 
-// — Ланцюжок валідаторів (Chain of Responsibility) —
 const requiredValidator = new RequiredValidator();
 const numberValidator = requiredValidator.setNext(new NumberValidator());
 const rangeValidator = numberValidator.setNext(new RangeValidator(mandarinRepo));
 
-// — Експорт всього —
 module.exports = {
     userRepo,
     mandarinRepo,

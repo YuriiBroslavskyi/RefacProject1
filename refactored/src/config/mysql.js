@@ -1,4 +1,3 @@
-// src/config/mysql.js
 require('dotenv').config();
 module.exports = {
     HOST: process.env.HOST,

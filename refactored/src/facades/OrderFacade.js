@@ -1,4 +1,3 @@
-// src/facades/OrderFacade.js
 class OrderFacade {
     constructor(factory, orderService) {
         this.factory = factory;

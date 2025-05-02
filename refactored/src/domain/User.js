@@ -1,4 +1,3 @@
-// src/domain/User.js
 class User {
     constructor({ id, username, password_hash, created_at }) {
         this.id = id;

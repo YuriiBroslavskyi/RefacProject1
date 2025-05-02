@@ -1,4 +1,3 @@
-// src/controllers/OrderController.js
 const BaseController = require('./BaseController');
 const { orderFacade, notifier, validatorChain } = require('../container');
 const { mandarinRepo } = require('../container');

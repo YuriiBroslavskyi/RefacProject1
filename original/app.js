@@ -7,17 +7,12 @@ const indexRoutes = require('./routes/indexRoutes');
 
 const app = express();
 
-// Налаштування EJS
 app.use(express.static(path.join(__dirname, '..', 'public')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Статика
-
-// Парсинг тіла
 app.use(express.urlencoded({ extended: false }));
 
-// Сесії
 app.use(session({
     secret: 'mandarin-secret-key',
     resave: false,
@@ -26,7 +21,6 @@ app.use(session({
 }));
 
 app.use((req, res, next) => {
-    // робимо доступним в усіх шаблонах змінну session
     res.locals.session = req.session;
     next();
 });
@@ -36,19 +30,19 @@ app.use((req, res, next) => {
     next();
 });
 
-// Роутери
 app.use(authRoutes);
 app.use(indexRoutes);
 
-// Старт
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
-});
+// const PORT = process.env.PORT || 3000;
+// app.listen(PORT, () => {
+//     console.log(`Server running at http://localhost:${PORT}`);
+// });
 
 module.exports = app;
 
 if (require.main === module) {
     const PORT = process.env.PORT || 3000;
-    app.listen(PORT);
+    app.listen(PORT, () => {
+        console.log(`Server running at http://localhost:${PORT}`);
+    });
 }

@@ -1,4 +1,3 @@
-// src/validators/NumberValidator.js
 class NumberValidator {
     setNext(next) { this.next = next; return next; }
     validate(req) {

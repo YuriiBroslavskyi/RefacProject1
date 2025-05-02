@@ -16,7 +16,6 @@ main {
     padding: 0 1rem;
 }
 
-/* ---------- VARS ---------- */
 :root {
     --orange-light: #ffe5d4;
     --orange: #ff7f00;
@@ -28,7 +27,6 @@ main {
     --font: 'Montserrat', sans-serif;
 }
 
-/* ---------- RESET & BASE ---------- */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -51,7 +49,6 @@ button {
     font-family: var(--font);
 }
 
-/* ---------- HEADER & NAV ---------- */
 header {
     background: var(--orange);
     color: #fff;
@@ -83,14 +80,12 @@ header nav button:hover {
     opacity: 0.8;
 }
 
-/* ---------- MAIN LAYOUT ---------- */
 main {
     max-width: 1200px;
     margin: 2rem auto;
     padding: 0 1rem;
 }
 
-/* ---------- AUTH FORMS ---------- */
 .auth {
     background: #fff;
     max-width: 400px;
@@ -136,7 +131,6 @@ main {
     background: var(--orange-dark);
 }
 
-/* ---------- MANDARIN CARD LIST ---------- */
 .mandarin-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -186,7 +180,6 @@ main {
     transform: translateY(-2px);
 }
 
-/* ---------- PROFILE / ORDER LIST ---------- */
 .profile {
     max-width: 800px;
     margin: 2rem auto;
@@ -221,7 +214,6 @@ main {
     font-size: 0.9rem;
 }
 
-/* ---------- FOOTER ---------- */
 footer {
     background: var(--orange);
     color: #fff;
@@ -230,7 +222,6 @@ footer {
     margin-top: 2rem;
 }
 
-/* ---------- RESPONSIVE ---------- */
 @media (max-width: 600px) {
     header {
         flex-direction: column;

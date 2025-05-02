@@ -1,4 +1,3 @@
-// src/repositories/MandarinRepository.js
 const pool = require('../db');
 const Mandarin = require('../domain/Mandarin');
 

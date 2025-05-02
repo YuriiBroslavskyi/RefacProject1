@@ -1,4 +1,3 @@
-// src/controllers/BaseController.js
 class BaseController {
     wrap(action) {
         return async (req, res, next) => {

@@ -1,4 +1,3 @@
-// src/repositories/UserRepository.js
 const pool = require('../db');
 const User = require('../domain/User');
 

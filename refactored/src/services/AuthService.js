@@ -1,4 +1,3 @@
-// src/services/AuthService.js
 const bcrypt = require('bcrypt');
 
 class AuthService {

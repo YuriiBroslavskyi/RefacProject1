@@ -1,4 +1,3 @@
-// src/factories/MandarinFactory.js
 const Mandarin = require('../domain/Mandarin');
 const pool = require('../db');
 

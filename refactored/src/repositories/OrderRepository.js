@@ -1,4 +1,3 @@
-// src/repositories/OrderRepository.js
 const pool = require('../db');
 const Order = require('../domain/Order');
 

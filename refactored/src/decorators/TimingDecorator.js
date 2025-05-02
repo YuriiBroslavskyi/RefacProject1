@@ -1,4 +1,3 @@
-// src/decorators/TimingDecorator.js
 class TimingDecorator {
     constructor(repo) { this.repo = repo; }
     async save(...args) {

@@ -1,4 +1,3 @@
-// src/domain/Order.js
 class Order {
     constructor({ id, user_id, mandarin_id, order_date, name, price }) {
         this.id = id;

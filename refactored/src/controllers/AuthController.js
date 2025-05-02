@@ -1,4 +1,3 @@
-// src/controllers/AuthController.js
 const BaseController = require('./BaseController');
 const { authService } = require('../container');
 
