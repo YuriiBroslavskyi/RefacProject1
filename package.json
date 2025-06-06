@@ -8,7 +8,7 @@
     "start:refactored": "node refactored/src/app.js",
     "test:original": "set \"IMPL=original\"&& jest tests/original/app.test.js --runInBand --coverage",
     "test:refactored": "set \"IMPL=refactored/src\"&& jest tests/refactored/app.test.js --runInBand --coverage",
-    "test": "npm run test:original && npm run test:refactored",
+    "test": "jest --coverage",
     "sonar:scan": "sonar-scanner"
   },
   "dependencies": {
