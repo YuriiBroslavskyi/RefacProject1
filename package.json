@@ -6,11 +6,13 @@
   "scripts": {
     "start:original": "node original/app.js",
     "start:refactored": "node refactored/src/app.js",
-    "test:original": "set \"IMPL=original\"&& jest tests/original/app.test.js --runInBand",
-    "test:refactored": "set \"IMPL=refactored/src\"&& jest tests/refactored/app.test.js --runInBand",
-    "test": "npm run test:original && npm run test:refactored"
+    "test:original": "set \"IMPL=original\"&& jest tests/original/app.test.js --runInBand --coverage",
+    "test:refactored": "set \"IMPL=refactored/src\"&& jest tests/refactored/app.test.js --runInBand --coverage",
+    "test": "npm run test:original && npm run test:refactored",
+    "sonar:scan": "sonar-scanner"
   },
   "dependencies": {
+    "dotenv": "^16.5.0",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
     "express-session": "^1.17.3"
@@ -19,6 +21,20 @@
     "cross-env": "^7.0.3",
     "faker": "^6.6.6",
     "jest": "^29.7.0",
+    "mocha": "^11.5.0",
+    "nyc": "^17.1.0",
     "supertest": "^6.3.4"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "coverageDirectory": "coverage",
+    "coverageReporters": [
+      "lcov",
+      "text"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/dist/"
+    ]
   }
 }

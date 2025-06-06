@@ -1,0 +1,49 @@
+name: SonarCloud
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build_and_sonar:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Клонуємо репозиторій
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 2. Встановлюємо версію Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # 3. Встановлюємо залежності
+      - name: Install dependencies
+        run: npm ci
+
+      # 4. Запускаємо тести з coverage   
+      - name: Run Jest tests (with coverage)
+        run: npm test
+
+      # 5. Передаємо SONAR_TOKEN у середовище (значення маємо у GitHub Secrets)
+      - name: Set SONAR_TOKEN
+        run: echo "SONAR_TOKEN=${{ secrets.SONAR_TOKEN }}" >> $GITHUB_ENV
+
+      # 6. Запускаємо SonarScanner
+      - name: Run SonarCloud Scanner
+        run: |
+          npx sonar-scanner \
+            -Dsonar.projectKey=mandarin-store \
+            -Dsonar.organization=<ваша-організація-в-SonarCloud> \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=$SONAR_TOKEN \
+            -Dsonar.sources=original,refactored/src \
+            -Dsonar.exclusions=node_modules/**,dist/** \
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
+            -Dsonar.sourceEncoding=UTF-8

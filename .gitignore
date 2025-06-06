@@ -1,29 +1,39 @@
-# Node modules
 node_modules/
 
-# Logs
-logs
+logs/
 *.log
 npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Runtime data
-pids
+pids/
 *.pid
 *.seed
 
-# dotenv environment variables file
-.env
-
-# OS-specific files
-.DS_Store
-Thumbs.db
-
-# Optional npm cache directory
-.npm/
-
-# Coverage directory used by testing tools like istanbul
 coverage/
+.nyc_output/
 
-# Build output
+/jest/
+
+*.tsbuildinfo
+
+.DS_Store
+
+.env
+.env.*.local
+
 dist/
 build/
+
+.vscode/
+.idea/
+
+.sonar/
+.scannerwork/
+
+*.tgz
+
+docker-compose.override.yml
+
+*.swp
+.tmp/
