@@ -142,7 +142,6 @@ class TimingDecorator {
     console.timeEnd('OrderRepo.save');
     return res;
   }
-  // аналогічно для findByUser…
 }
 ```
 ### 6. Singleton
