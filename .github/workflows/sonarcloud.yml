@@ -40,7 +40,7 @@ jobs:
         run: |
           npx sonar-scanner \
             -Dsonar.projectKey=mandarin-store \
-            -Dsonar.organization=<ваша-організація-в-SonarCloud> \
+            -Dsonar.organization=yuriibroslavskyi \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=$SONAR_TOKEN \
             -Dsonar.sources=original,refactored/src \
